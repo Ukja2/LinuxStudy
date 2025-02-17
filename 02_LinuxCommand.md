@@ -119,3 +119,64 @@ rm은 파일을 삭제하는 명령어
 `grep -r "hello"` : 현재 디렉토리와 하위 디렉토리에서 hello 검색
 
 ---
+## 🔒 3. 파일 및 디렉토리 권한
+
+### `chmod` : 파일 권한 변경
+
+- chmod 명령어는 파일이나 디렉토리의 읽기/쓰기/실행 권한을 변경할 때 사용
+- 권한은 숫자나 기호로 설정할 수 있음
+
+`권한의 숫자 값`
+
+`r` (읽기): 4
+
+`w` (쓰기): 2
+
+`x` (실행): 1
+
+각 권한을 숫자값으로 합쳐서 설정
+
+예시 (숫자로 설정):
+- `chmod 755 myfile.txt` 
+  - 소유자에게 읽기/쓰기/실행 권한, 그룹과 다른 사용자에게 읽기/실행 권한을 부여
+  - 7 = rwx, 5 = r-x, 5 = r-x
+
+예시 (기호로 설정):
+
+- `chmod u+x myfile.txt`
+    - 소유자(u)에게 실행 권한 추가
+
+- `chmod go-r myfile.txt`
+    - 그룹(g)과 다른 사용자(o)에서 읽기 권한 제거
+
+### `chown` : 파일 소유자와 그룹 변경
+- chown 명령어는 파일이나 디렉토리의 소유자와 그룹을 변경하는 명령어
+- 기본적으로 chown <소유자>:<그룹> <파일> 형태로 사용
+- 소유자와 그룹을 바꾸지 않으려면 생략 가능
+
+- `chown user:group myfile.txt`
+    - myfile.txt의 소유자를 user, 그룹을 group으로 변경
+- `chown user myfile.txt`
+    - myfile.txt의 소유자만 user로 변경
+- `chown :group myfile.txt`
+    - myfile.txt의 그룹만 group으로 변경
+
+---
+
+## 💻 이 외의 추가적인 명령어
+
+### `echo` : 텍스트나 변수 값을 출력할 때 사용
+
+`echo Hello, World!` : 화면에 "Hello, World!" 출력
+
+`echo $HOME` : 현재 사용자의 홈 디렉토리 경로 출력
+
+`echo "My name is $USER"` : 변수 사용 (현재 사용자 이름 출력)
+
+### `sudo` : 관리자 권한으로 명령어를 실행할 때 사용
+- sudo는 "SuperUser Do"의 줄임말로, 일반 사용자가 관리자 권한을 얻어 명령어를 실행할 수 있게 함. 
+- 예를 들어 시스템 파일을 수정하거나, 패키지를 설치할 때 필요
+
+`sudo apt-get update` : 시스템 패키지 목록을 업데이트 (Ubuntu 기준)
+
+`sudo rm -rf /` : 주의! 시스템을 파괴할 수 있음 (루트 디렉토리 삭제)
