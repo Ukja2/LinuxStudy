@@ -60,7 +60,8 @@ Apache를 재시작해주면 정상적으로 **작동할 수도 있다.**
 
 -> Apache conf 파일로 이동해서 Listen을 검색하면 Port 번호가 8080으로 되어있을 것이다. 이를 `80 (기본포트)`로 변경해주면 된다.
 
-![alt text](<스크린샷 2025-02-23 20.41.53.png>)
+![](https://velog.velcdn.com/images/ghkdehs/post/46421195-4930-4d18-9962-4ce000873a55/image.png)
+
 
 
 ### 3️⃣ 웹 페이지 배포 준비
@@ -91,4 +92,6 @@ Apache를 재시작해주면 정상적으로 **작동할 수도 있다.**
 ```
 이를 적용하면 바뀐 모습을 볼 수 있다.
 
-![alt text](<스크린샷 2025-02-23 21.24.20.png>)
+![](https://velog.velcdn.com/images/ghkdehs/post/45bb71ed-d9f0-41d7-bc0f-24ac536c4ae9/image.png)
+
+
