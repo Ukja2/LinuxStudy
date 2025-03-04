@@ -100,6 +100,8 @@ sudo nano /opt/homebrew/etc/httpd/extra/httpd-vhosts.conf
 mkdir -p /opt/homebrew/var/www/example1
 mkdir -p /opt/homebrew/var/www/example2
 ```
+- 디렉토리 생성 후 내부에 `index.html`파일을 넣어주어야 홈페이지 화면이 출력된다. 없을 경우 `index of/` 라는 현상이 발생할 수 있음
+
 ### 4.퍼미션 확인
 - Apache가 해당 디렉토리에 접근할 수 있도록 적절한 퍼미션이 설정되어 있어야 한다.
 ```bash
