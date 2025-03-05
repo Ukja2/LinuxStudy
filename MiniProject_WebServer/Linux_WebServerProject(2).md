@@ -126,3 +126,15 @@ sudo nano /etc/hosts
 sudo apachectl restart
 ```
 모든 작업을 완료하고 재시작하여 브라우저에서 **http://example1.local** 과 **http://example2.local** 을 입력하면 정상적으로 페이지가 출력되는 것을 확인할 수 있다.
+
+---
+
+### 4️⃣ 기초 보안 설정
+### 1. 디렉토리 리스팅 차단
+- 목적 : 디렉토리 목록(파일 리스트)이 노출되는 걸 방지
+
+- 설정 파일을 연 뒤
+```bash
+sudo nano /opt/homebrew/etc/httpd/httpd.conf
+```
+
