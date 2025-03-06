@@ -132,9 +132,60 @@ sudo apachectl restart
 ### 4️⃣ 기초 보안 설정
 ### 1. 디렉토리 리스팅 차단
 - 목적 : 디렉토리 목록(파일 리스트)이 노출되는 걸 방지
+- 디렉토리 리스팅 차단을 하지 않으면 관리자 외의 웹 이용자들도 특정 경로 입력 시 디렉토리 리스트(설정 파일, 백업 파일, API Key 등)를 확인할 수 있게 된다.
 
-- 설정 파일을 연 뒤
+1. 우선 테스트를 하기 위해 `testdir` 디렉토리를 생성
+```bash
+sudo mkdir /opt/homebrew/var/www/testdir
+```
+
+2. 여기서 나는 가상호스트 설정 때문에 `testdir`로 접속시 `NotFound` 오류가 발생해 가상호스트 관련 설정을 모두 주석처리 했다.
 ```bash
 sudo nano /opt/homebrew/etc/httpd/httpd.conf
 ```
+2.1 Apache 기본 설정에 들어가서
+```bash
+Include /opt/homebrew/etc/httpd/extra/httpd-ssl.conf
+```
+위 명령어를 주석처리 한다.
 
+2.2 이후 `도메인 매핑(로컬 호스트 이름 해석)` 설정 파일을 열고,
+
+```bash
+sudo nano /etc/hosts
+```
+가상호스트 파트에서 설정한 local1,2 로컬호스트 주소를 주석처리 한다.
+```bash
+127.0.0.1    example1.local
+127.0.0.1    example2.local
+```
+
+3. 그리고 디렉토리 파일을 볼 수 있는지 확인하기 위해 위 설정들을 적용 후 `http://localhost/testdir/` 주소로 이동하면 
+
+![](https://velog.velcdn.com/images/ghkdehs/post/42c75894-7f81-44b3-9fea-f725617d944b/image.png)
+디렉토리를 읽을 수 있다.
+
+
+3.1 다시 돌아와서 Apache 기본 파일로 이동한다.
+```bash
+sudo nano /opt/homebrew/etc/httpd/httpd.conf
+```
+3.2 `Options Indexes FollowSymLinks` 부분을 아래와 같이 수정한다.
+```bash
+<Directory "/opt/homebrew/var/www">
+    Options -Indexes +FollowSymLinks
+</Directory>
+```
+- `-Indexes`은 디렉토리 리스팅을 차단하여 디렉토리 목록을 볼 수 없게 지정하는 것이고, `FoloowSymLinks`는 심볼릭 링크를 따라가도록 설장하는 것이다.
+
+- 만약 Indexes에만 기호 `-`를 붙였다면 Apache 기호 규칙에 따라 오류가 발생한다.
+
+> 모든 옵션은 + 또는 **-** 로 시작하거나, 아예 아무 것도 붙이지 않은 형태로 설정해야 한다.
+
+3.3 다시 `testdir/`로 이동하면 `디렉토리 리스팅(목록 보기) 차단`이 된 것을 알 수 있다.
+![](https://velog.velcdn.com/images/ghkdehs/post/f5eb2ed5-e0d4-47a9-bbd6-43b8ff16722b/image.png)
+
+
+### 2. 접근 제한 설정
+특정 디렉토리나 IP에서만 접근할 수 있도록 제한하는 방법
+1. 
