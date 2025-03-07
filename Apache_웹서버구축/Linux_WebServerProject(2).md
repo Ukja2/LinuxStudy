@@ -188,4 +188,31 @@ sudo nano /opt/homebrew/etc/httpd/httpd.conf
 
 ### 2. 접근 제한 설정
 특정 디렉토리나 IP에서만 접근할 수 있도록 제한하는 방법
-1. 
+1. Apache 설정 열기
+```bash
+sudo nano /opt/homebrew/etc/httpd/httpd.conf
+```
+
+2. 특정 IP만 접속할 수도 있도록, 아래 명령문을 기존 `DocumentRoot` 설정 근처에 추가한다.  
+
+```bash
+<Directory "/opt/homebrew/var/www/testdir">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require ip 127.0.0.1 ::1
+</Directory>
+```
+- 디렉토리 파일 목록을 보여주고(Indexes), 심볼릭 링크를 따라가며(FollowSymLinks)
+- .htaccess 파일은 무시(`AllowOverride None`)
+`.htaccess 파일` : Apache 웹 서버에서 디렉토리 별로 설정을 변경할 수 있는 파일
+-> 디렉토리에 접근하는 것을 방지할 수 있다. (특정 디렉토리 보안을 위해 주로 사용)
+- 오직 내 컴퓨터(로컬)에서만 접근 허용(Require ip 127.0.0.1 ::1)
+
+3. Apahce 서버를 restart 후 `testdir` 로 접속하면
+
+![](https://velog.velcdn.com/images/ghkdehs/post/65f36be7-bd97-4624-846a-535e76c27e95/image.png)
+
+나의 `로컬호스트` 주소는 `testdir`이라는 특정 디렉토리를 확인할 수 있고, 다른 IP 주소로 확인해보면
+![](https://velog.velcdn.com/images/ghkdehs/post/fb87fa7c-644b-4284-a33a-fefc20ff42c1/image.png)
+
+특정 IP를 제외한 IP는 정상적으로 디렉토리 리스팅 차단이 된 것을 확인할 수 있다.
