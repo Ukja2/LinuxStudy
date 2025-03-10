@@ -216,3 +216,26 @@ sudo nano /opt/homebrew/etc/httpd/httpd.conf
 ![](https://velog.velcdn.com/images/ghkdehs/post/fb87fa7c-644b-4284-a33a-fefc20ff42c1/image.png)
 
 특정 IP를 제외한 IP는 정상적으로 디렉토리 리스팅 차단이 된 것을 확인할 수 있다.
+
+### 3. Apache 정보 숨기기
+
+서버의 정보를 노출하면 보안에 취약해지기 때문에, Apache 버전이나 운영 체제 정보를 감출 수 있다.
+
+1. 설정 파일 열기
+```bash
+sudo nano /opt/homebrew/etc/httpd/httpd.conf
+```
+
+2.아래의 명령어를 설정에 추가한다.
+```bash
+ServerSignature Off
+ServerTokens Prod
+```
+- `ServerSignature Off` : 에러 페이지 하단에 뜨는 서버 정보 숨김
+- `ServerTokens Prod` : 응답 헤더에서 Apache 버전 정보 감춤
+
+3. Apache 서버 재시작 후 적용되었는지 확인
+```bash
+curl -I http://localhost
+```
+응답에 Server: Apache만 보이고, 버전 정보가 안 보이면 성공이다.
